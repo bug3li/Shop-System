@@ -1,0 +1,24 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "ShopSystem",
+        "description": "...",
+        "uuid": "29514e35-d18d-4470-87fe-39e33415dffd",
+        "version": "1.3.6",
+        "min_engine_version": [1, 21, 130],
+        "pack_scope": "world"
+    },
+    "modules": [
+        {
+            "type": "resources",
+            "uuid": "0f2491b4-3682-48ec-926e-9232e3e52f4d",
+            "version": "1.3.0"
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "45bfcdaa-c644-4de9-959a-234d972305af",
+            "version": "1.3.0"
+        }
+    ]
+}
