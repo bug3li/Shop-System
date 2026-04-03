@@ -18,10 +18,3 @@ Navigation History: Built-in "Back" button logic that remembers which menu the p
 Import ShopManager into your main script file.
 
 Ensure your manifest.json includes the @minecraft/server module.
-
-⚖️ Dependencies
-ChestFormData: Required for the custom chest-style UI layout.
-
-Database: Used for tracking menu history (back buttons).
-
-Scoreboard Utilities: Required for getScore and setScore functionality.
