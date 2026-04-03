@@ -35,7 +35,7 @@ export class ShopManager {
             if (!item?.chest_location) {
                 if (ItemTypes.get(typeId) !== undefined) {
                     const stack = new ItemStack(typeId, 1);
-                    const damage = getAttackDamage(stack);
+                    const damage = stack.getComponent("minecraft:attack_damage")?.damage ?? 0;
                     if (damage !== 0) description.push(`\n§9+${damage} Attack Damage`);
                 }
             }
@@ -147,20 +147,40 @@ export class ShopManager {
         if (inv.emptySlotsCount < 1) return player.sendMessage(`§cInventory full!`);
 
         setScore(player, selected.objective, money - cost);
-        const item = new ItemStack(selected.typeId, amount);
 
-        if (selected.enchantments) {
-            const enchantable = item.getComponent("minecraft:enchantable");
-            if (enchantable) {
-                enchantable.addEnchantments(selected.enchantments.map(e => ({
-                    type: EnchantmentTypes.get(e.type),
-                    level: e.level
-                })));
+        if (selected.chest_location) {
+            const chest = world.getDimension("overworld").getBlock(selected.chest_location);
+            const playerinv = player.getComponent("inventory").container;
+            const chestinv = chest.getComponent("inventory").container;
+
+            for (let i = 0; i < chestinv.size; i++) {
+                const item = chestinv.getItem(i);
+
+                if (!item) continue;
+
+                for (let a = 0; a < amount; a++) {
+                    playerinv.addItem(item);
+                }
             }
+        } else {
+            const item = new ItemStack(selected.typeId, amount);
+
+            if (selected.enchantments) {
+                const enchantable = item.getComponent("minecraft:enchantable");
+                if (enchantable) {
+                    enchantable.addEnchantments(
+                        selected.enchantments.map((e) => ({
+                            type: EnchantmentTypes.get(e.type),
+                            level: e.level,
+                        })),
+                    );
+                }
+            }
+
+            inv.addItem(item);
+            player.sendMessage(`§aPurchased ${amount}x ${selected.name}`);
         }
 
-        inv.addItem(item);
-        player.sendMessage(`§aPurchased ${amount}x ${selected.name}`);
         player.playSound("random.orb", { pitch: 1 });
         this.openAmountSelector(player, selected, amount);
     }
