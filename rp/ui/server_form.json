@@ -30,21 +30,6 @@
 					]
 				}
 			},
-            {
-                "opened_crate_menu@opened_crate.form_panel": {
-                    "layer": 2,
-                    "bindings": [
-                        {
-                            "binding_name": "#title_text"
-                        },
-                        {
-                            "binding_type": "view",
-                            "source_property_name": "(not (((('§z') + #title_text) - '§c§r§a§t§e§_§o§p§e§n§e§d') = (('§z') + #title_text)))",
-                            "target_property_name": "#visible"
-                        }
-                    ]
-                }
-            },
 			{
 				"chest_ui@chest_ui.chest_panel": {
 					"bindings": [
